@@ -120,13 +120,29 @@ We also broke it out accross the different defensive coverage types to see which
 
 We see here that defender speed is most important in __ coverages, but not as important in __ coverages. 
 
+## Conclusion
 
+At the end of the day, the 40-yard dash is more than just a combine headline — it can have a huge impact on the right play. While defender speed is just one of many factors, we used Data Science to identify scenarios where it's most important and compared it to in-game speed metrics from player tracking data. 
 
-<!-- 
+By building a predictive model and identifying "high-impact" setups, we've created a framework that allows teams to:
+
+1. **Evaluate matchups in real-time** — Identifying when an elite defender's speed gives them a significant advantage
+2. **Adjust play calling** — Modifying route designs or targeting decisions when facing high-impact matchups
+3. **Optimize game planning** — Understanding which routes and coverages are most vulnerable to elite defender speed 
+
+This approach transforms combine metrics from simple scouting data into actionable intelligence that can influence in-game decision making. As tracking data continues to improve and the analytics become more sophisticated, it's insights like these that'll help teams survive and thrive in the modern NFL. 
+
+## Appendix: Code
+
+The code for the analysis and visuals is available in a public GitHub repo. The code is broken out across a few different Jupyter notebooks: 
+
+1. Summarize Tracking Data 
+2. Pull Combine Data 
+3. Analyze Metrics 
+4. Create Visuals 
+
 ## Acknowledgments
 
 This analysis was conducted as part of the 2026 NFL Big Data Bowl using player tracking data provided by the NFL. Special thanks to the NFL for making this rich dataset available to the analytics community.
 
----
-
-*For questions or feedback, please contact the author or visit the project repository.* -->
+Michael Lopez, Tom Bliss, Ally Blake, and Addison Howard. NFL Big Data Bowl 2026 - Analytics. https://kaggle.com/competitions/nfl-big-data-bowl-2026-analytics, 2025. Kaggle.
