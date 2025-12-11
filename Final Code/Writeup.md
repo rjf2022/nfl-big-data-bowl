@@ -78,7 +78,8 @@ We used a tool called SHAP values to measure the effect that defender 40 time ha
 We won't go into too much detail about SHAP values, but there are 2 main guidelines for how to interpret the 40 time impact on a given play: 
 
 1. A value of 0 means no significant impact 
-2. The higher the value, the bigger the impact 
+2. Negative values mean the defender speed decreased completion probability (lower values mean bigger impact)
+3. Positive values mean the defender speed increased completion probability (high values mean bigger impact) 
 
 ### High-Impact Classification 
 
