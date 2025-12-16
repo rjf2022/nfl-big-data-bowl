@@ -20,7 +20,7 @@ These are a few terms we'll use with the tracking data:
 
 ### Defender 40-Times 
 
-We pulled NFL Combine results from this [Pro Football Reference](https://www.pro-football-reference.com/) website to get the 40 times for each defender. Note that this only uses 40 times from the NFL Combine, so we don't have data for defenders who didn't run the 40-Yard Dash in the Combine, and they were excluded from the analysis. 
+We pulled NFL Combine results from this [Pro Football Reference](https://www.pro-football-reference.com/draft/2023-combine.htm) website to get the 40 times for each defender. Note that this only uses 40 times from the NFL Combine, so we don't have data for defenders who didn't run the 40-Yard Dash in the Combine, and they were excluded from the analysis. 
 
 ## Defender Tracking Metrics 
 
@@ -39,25 +39,31 @@ We picked out a few play examples below to demonstrate these metrics:
 
 ### Example 1. DJ Turner vs Go Route 
 
-In the first example, we see DJ Turner (who set the record for the 2023 Combine with a 4.26) having to turn and run with the receiver on a go route (allowing only ___ yards of separation by the time the ball gets there): 
+In the first example, we see DJ Turner (who set the record for the 2023 Combine with a 4.26) having to turn and run with the receiver on a go route (allowing only 0.42 yards of final separation): 
 
-<img src="example_1_end.png" alt="Figure 1. DJ Turner Play Example" width="800">
+<img src="example_1_end.png" alt="Figure 1. DJ Turner Covers a Go Route" width="600">
 
-*Figure 1: DJ Turner coverage on go route* 
+*Figure 1. DJ Turner Covers a Go Route* 
 
 When we plot out his speed throughout the play, we see that he hit a top speed of 22 mph (which is actually faster than the receiver), allowing him to catch up to the receiver and prevent a big play. 
 
-(Figure 2: example 1 chart) 
+<img src="Example 1 Chart.png" alt="Figure 2. DJ Turner Top Speed Chart" width="600">
+
+*Figure 2. DJ Turner Top Speed Chart* 
 
 ### Example 2. Deonte Banks vs Out Route 
 
 In our second example, the receiver runs a deep out in the end zone, forcing Deonte Banks to shift from a slight backpedal to a sprint towards the sideline: 
 
-(Figure 3: example 2 play) 
+<img src="example_2_end.png" alt="Figure 3. Deonte Banks Covers an Out Route" width="600">
 
-When we plot out his acceleration to the ball, we see that it peaks at 7.5 yd/s² - allowing him to catch up to the receiver (with only __ yards of final separation), get out in front, and prevent the touchdown. 
+*Figure 3. Deonte Banks Covers an Out Route* 
 
-(figure 4: example 2 chart)
+When we plot out his acceleration to the ball, we see that it peaks at 7.5 yd/s² - allowing him to catch up to the receiver (with only 0.41 yards of final separation), get out in front, and prevent the touchdown. 
+
+<img src="Example 2 Chart.png" alt="Figure 4. Deonte Banks Peak Acceleration Chart" width="600">
+
+*Figure 4. Deonte Banks Peak Acceleration Chart* 
 
 ## High-Impact Setups 
 
@@ -91,7 +97,9 @@ For example, in the play below (see Figure 5), we see a go route planned against
 
 Against a normal defender (i.e. average 40 time), we estimate a 42.8% completion probability for this route. However, against Stokes, the completion probability drops down to 29.4%. 
 
-(Figure 5: play prediction)
+<img src="Setup Probability Example.png" alt="Figure 5. Play Setup Probability Example" width="600">
+
+*Figure 5. Play Setup Probability Example* 
 
 In an actual game scenario, we could setup this model to evaluate the play setup in real-time, send alerts for when high-impact setups occur, and prompt the players/coaches to adjust the play design to avoid the elite defender. 
 
@@ -105,13 +113,28 @@ Overall (in the test dataset), we found that in high-impact plays, defenders
 - Allow **15.8% less separation** (2.7 yards vs 3.21 yards) 
 - Give up a **9.0% lower completion rate** (61.1% vs 67.1%) 
 
-Note that we didn't actually see a significant difference in acceleration (5.0 yd/s² vs 4.97 yd/s²). We believe this is because a lot of the high-impact plays occur on deeper routes (see Table 1 below) where the defender is already running in the right direction when the ball is thrown. 
+Note that we didn't actually see a significant difference in acceleration (5.0 yd/s² vs 4.97 yd/s²). We believe this is because a lot of the high-impact plays occur on deeper routes (see Table 1 in the next section) where the defender is already running in the right direction when the ball is thrown. 
 
 ### Breakout by Route 
 
 To see which routes are most impacted by defender speed, we summarized the high-impact plays across the different route types: 
 
-(Table 1: high-impact plays by route) 
+*Table 1. High-Impact Plays by Route* 
+
+| Targeted Route | Total Plays | High-Impact Plays | High-Impact % | Avg Top Speed (mph) | Avg Peak Accel (yd/s²) | Avg Separation (yards) | Completion Rate |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| GO | 171 | 70 | 40.9% | 16.61 | 4.11 | 1.87 | 42.1% | 
+| HITCH | 340 | 88 | 25.9% | 10.33 | 6.15 | 2.82 | 72.6% | 
+| ANGLE | 51 | 13 | 25.5% | 10.46 | 5.46 | 4.03 | 64.7% | 
+| POST | 121 | 25 | 20.7% | 14.17 | 4.28 | 2.59 | 52.9% | 
+| SLANT | 125 | 24 | 19.2% | 11.34 | 5.00 | 2.23 | 63.2% | 
+| SCREEN | 32 | 6 | 18.8% | 10.51 | 5.83 | 6.36 | 87.5% | 
+| WHEEL | 11 | 2 | 18.2% | 15.18 | 4.65 | 3.16 | 54.5% | 
+| IN | 141 | 20 | 14.2% | 12.38 | 5.40 | 2.65 | 70.2% | 
+| CORNER | 65 | 9 | 13.8% | 15.78 | 4.69 | 2.66 | 55.4% | 
+| OUT | 273 | 35 | 12.8% | 13.49 | 5.34 | 2.86 | 67.8% | 
+| CROSS | 168 | 21 | 12.5% | 14.62 | 3.66 | 3.27 | 60.1% | 
+| FLAT | 213 | 21 | 9.9% | 12.89 | 4.31 | 5.28 | 83.6% |
 
 We see that defender speed has the highest impact on Go routes, where they typically have to turn and run with the receiver. 
 
@@ -119,33 +142,44 @@ We see that defender speed has the highest impact on Go routes, where they typic
 
 We also broke it out accross the different defensive coverage types to see which coverage schemes are most impacted by defender speed: 
 
-(Table 2: high-impact plays by coverage type)
+*Table 2. High-Impact Plays by Defensive Coverage* 
 
-We see that defender speed is typically more important in man coverage compared to zone coverage. However, it was actually most influential in a cover 3 zone (where the back 3 defenders have to cover a lot of vertical space).  
+| Defensive Coverage | Total Plays | High-Impact Plays | High-Impact % | Avg Top Speed (mph) | Avg Peak Accel (yd/s²) | Avg Separation (yards) | Completion Rate |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| COVER_3_ZONE | 541 | 127 | 23.5% | 12.57 | 5.22 | 3.40 | 68.4% | 
+| COVER_2_MAN | 40 | 9 | 22.5% | 13.75 | 4.28 | 2.46 | 52.5% | 
+| COVER_1_MAN | 394 | 86 | 21.8% | 14.40 | 4.47 | 2.31 | 59.1% | 
+| COVER_0_MAN | 75 | 16 | 21.3% | 13.65 | 4.66 | 3.02 | 62.7% | 
+| COVER_4_ZONE | 281 | 50 | 17.8% | 12.83 | 4.92 | 3.18 | 65.8% | 
+| PREVENT | 8 | 1 | 12.5% | 13.23 | 4.97 | 3.25 | 75.0% | 
+| COVER_2_ZONE | 193 | 24 | 12.4% | 11.43 | 5.37 | 4.00 | 74.1% | 
+| COVER_6_ZONE | 179 | 21 | 11.7% | 12.37 | 5.27 | 3.09 | 68.7% |
+
+In general, defender speed is typically more important in man coverage compared to zone coverage. However, for specific coverage types, it was actually most influential in a cover 3 zone (where the back 3 defenders have to cover a lot of vertical space).  
 
 ## Conclusion
 
-At the end of the day, the 40-yard dash is more than just a combine headline — it can have a huge impact on the right play. While defender speed is just one of many factors, we used Data Science to identify scenarios where it's most important and compared it to in-game speed metrics from player tracking data. 
+At the end of the day, the 40-yard dash is more than just a combine headline. It can have a huge impact on the right play. While defender speed is just one of many factors, we used data science to identify scenarios where it's most important. We also measured it in actual plays with metrics like top speed and peak acceleration. 
 
 By building a predictive model and identifying "high-impact" setups, we've created a framework that allows teams to:
 
-1. **Evaluate matchups in real-time** — Identifying when an elite defender's speed gives them a significant advantage
-2. **Adjust play calling** — Modifying route designs or targeting decisions when facing high-impact matchups
-3. **Optimize game planning** — Understanding which routes and coverages are most vulnerable to elite defender speed 
+1. **Evaluate matchups in real-time** to identify when an elite defender's speed gives them a significant advantage
+2. **Adjust play calling** to modify route designs or targeting decisions when facing high-impact matchups
+3. **Optimize game planning** to understand which routes and coverages are most vulnerable to elite defender speed 
 
-This approach transforms combine metrics from simple scouting data into actionable intelligence that can influence in-game decision making. As tracking data continues to improve and the analytics become more sophisticated, it's insights like these that'll help teams survive and thrive in the modern NFL. 
+As tracking data continues to improve and the analytics becomes a bigger part of the game, it's insights like these that'll help teams survive and thrive in the modern NFL. 
 
 ## Appendix: Code
 
 The code for the analysis and visuals is available in a public [GitHub repo](https://github.com/rjf2022/nfl-big-data-bowl/tree/main/Final%20Code). The code is broken out across a few different Jupyter notebooks: 
 
-1. [Summarize Tracking Data](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/1.%20Summarize%20Tracking%20Data.ipynb)
-2. [Pull Combine Data](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/2.%20Pull%20Combine%20Data.ipynb) 
-3. [Analyze Metrics](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/3.%20Analyze%20Metrics.ipynb) 
-4. [Create Visuals](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/4.%20Create%20Visuals.ipynb)
+1. [Summarize Tracking Data](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/1.%20Summarize%20Tracking%20Data.ipynb) - Reads in the raw tracking data and summarizes it into our metrics 
+2. [Pull Combine Data](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/2.%20Pull%20Combine%20Data.ipynb) - Downloads the combine data from [Pro Football Reference](https://www.pro-football-reference.com/draft/2023-combine.htm) 
+3. [Analyze Metrics](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/3.%20Analyze%20Metrics.ipynb) - Trains the ML model and summarizes results 
+4. [Create Visuals](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/4.%20Create%20Visuals.ipynb) - Creates the visuals and animations for this writeup and the YouTube video 
 
 ## Acknowledgments
 
-This analysis was conducted as part of the 2026 NFL Big Data Bowl using player tracking data provided by the NFL. Special thanks to the NFL for making this rich dataset available to the analytics community.
+This analysis was conducted as part of the [2026 NFL Big Data Bowl](https://www.kaggle.com/c/nfl-big-data-bowl-2026-analytics) using player tracking data provided by the NFL. Special thanks to the NFL for making this rich dataset available to the analytics community.
 
 Michael Lopez, Tom Bliss, Ally Blake, and Addison Howard. NFL Big Data Bowl 2026 - Analytics. https://kaggle.com/competitions/nfl-big-data-bowl-2026-analytics, 2025. Kaggle.
