@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The NFL Combine is where the league's top prospects put their athleticism on display, showcasing their speed, agility, and strength. One of the most iconic tests is the 40-yard dash — a baseline measure of a player's straight-line speed and acceleration. But how much does this actually matter once players hit the field? 
+The NFL Combine is where the league's top prospects put their athleticism on display, showcasing their speed, agility, and strength. One of the most iconic tests is the 40-yard dash, a baseline measure of a player's straight-line speed and acceleration. But how much does this actually matter once players hit the field? 
 
 In this analysis, we examine how a defender's 40-yard dash time influences their ability to close on the ball during pass plays and how teams can use these insights to sharpen their play calling. 
 
@@ -10,11 +10,11 @@ In this analysis, we examine how a defender's 40-yard dash time influences their
 
 ### Player Tracking Data 
 
-Through the NFL Big Data Bowl, we were provided player tracking data from the 2023 NFL season. This included frame-by-frame receivers and defenders on pass plays before the pass and while the ball was in the air. It also included supplementary info about each play such as the pass result, route of the targeted receiver, and defensive coverage type. 
+Through the NFL Big Data Bowl, we were provided player tracking data from the 2023 NFL season. This included frame-by-frame position data for receivers and defenders on pass plays before the pass and while the ball was in the air. It also included supplementary info about each play such as the pass result, route of the targeted receiver, and defensive coverage type. 
 
 These are a few terms we'll use with the tracking data: 
 
-- Final frame - last frame in the dataset, signifying when the ball is caught, falls incomplete, or gets intercepted, 
+- Final frame - last frame in the dataset, signifying when the ball is caught, falls incomplete, or gets intercepted 
 - Ball landing position - position of the ball at the final frame (so if the ball is caught, this is actually the spot of the catch)
 - Primary defender - defender that's closest to the targeted receiver at the final frame 
 
@@ -27,7 +27,7 @@ We pulled NFL Combine results from this [Pro Football Reference](https://www.pro
 Using the tracking data, we developed 3 different metrics to measure the defender's movement throughout the play: 
 
 1. Top Speed - max speed of the defender throughout the play 
-    - This includes both before the ball and thrown and while the ball is in the air 
+    - This includes both before the ball is thrown and while the ball is in the air 
     - Measured in miles per hour (mph)
 2. Peak Acceleration to the Ball - max acceleration towards the ball landing position 
     - We calculated this using distance between the defender's position at each frame and the ball landing position (so that it takes into account the defender's ability to change direction to move towards the ball) 
@@ -41,7 +41,9 @@ We picked out a few play examples below to demonstrate these metrics:
 
 In the first example, we see DJ Turner (who set the record for the 2023 Combine with a 4.26) having to turn and run with the receiver on a go route (allowing only ___ yards of separation by the time the ball gets there): 
 
-(Figure 1: example 1 play screenshot) 
+<img src="example_1_end.png" alt="Figure 1. DJ Turner Play Example" width="800">
+
+*Figure 1: DJ Turner coverage on go route* 
 
 When we plot out his speed throughout the play, we see that he hit a top speed of 22 mph (which is actually faster than the receiver), allowing him to catch up to the receiver and prevent a big play. 
 
@@ -53,7 +55,7 @@ In our second example, the receiver runs a deep out in the end zone, forcing Deo
 
 (Figure 3: example 2 play) 
 
-When we plot out his acceleration to the ball, we see that it peaks at 7.5 yd/s² - allowing him to catch up to the receiver (allowing only __ yards of separation at the end), get out in front, and prevent the touchdown. 
+When we plot out his acceleration to the ball, we see that it peaks at 7.5 yd/s² - allowing him to catch up to the receiver (with only __ yards of final separation), get out in front, and prevent the touchdown. 
 
 (figure 4: example 2 chart)
 
@@ -77,17 +79,17 @@ We used a tool called SHAP values to measure the effect that defender 40 time ha
 
 We won't go into too much detail about SHAP values, but there are 2 main guidelines for how to interpret the 40 time impact on a given play: 
 
-1. A value of 0 means no significant impact 
+1. A value of 0 means no impact 
 2. Negative values mean the defender speed decreased completion probability (lower values mean bigger impact)
-3. Positive values mean the defender speed increased completion probability (high values mean bigger impact) 
+3. Positive values mean the defender speed increased completion probability (higher values mean bigger impact) 
 
 ### High-Impact Classification 
 
-To simplify our analysis, we decided to flag "high-impact" plays where the primary defender has an elite 40 time that actually has a significant impact on the play. Note that we classified an "elite" 40 time as less than __ seconds and a "significant" impact as a SHAP value above __. 
+To simplify our analysis, we decided to flag "high-impact" plays where the defender's 40 time has a significantly negative impact on the pass result. We classify a "significantly low" impact as anything with a SHAP value below -0.1. 
 
-For example, in the play below (see Figure 5), we see a ____ route planned against a ____ defense. This route will likely be covered by ____. 
+For example, in the play below (see Figure 5), we see a go route planned against a cover 3 zone defense. This route is setup to be covered by Eric Stokes, who ran a 4.31 in the 2021 NFL Comine. 
 
-Against a normal defender (i.e. average 40 time), we estimate a __% completion probability for this route. However, against ____, the completion probability drops down to only __%. 
+Against a normal defender (i.e. average 40 time), we estimate a 42.8% completion probability for this route. However, against Stokes, the completion probability drops down to 29.4%. 
 
 (Figure 5: play prediction)
 
@@ -99,11 +101,11 @@ In addition to flagging setups in real-time, we can look at a few overall trends
 
 Overall (in the test dataset), we found that in high-impact plays, defenders 
 
-- Move at a **_% higher top speed** (__ mph vs __ mph) 
-- Accelerate to the ball **_% harder** (__yd/s² vs __yd/s²) 
-- Allow **_% less separation** (__ yards vs __ yards) 
+- Move at a **5.3% higher top speed** (13.5 mph vs 12.8 mph) 
+- Allow **15.8% less separation** (2.7 yards vs 3.21 yards) 
+- Give up a **9.0% lower completion rate** (61.1% vs 67.1%) 
 
-Ultimately, these lead to a **_% lower completion rate** (_% vs _%). 
+Note that we didn't actually see a significant difference in acceleration (5.0 yd/s² vs 4.97 yd/s²). We believe this is because a lot of the high-impact plays occur on deeper routes (see Table 1 below) where the defender is already running in the right direction when the ball is thrown. 
 
 ### Breakout by Route 
 
@@ -111,7 +113,7 @@ To see which routes are most impacted by defender speed, we summarized the high-
 
 (Table 1: high-impact plays by route) 
 
-We see here that defender speed has the highest impact on __ routes, but not much of an impact on __ routes. 
+We see that defender speed has the highest impact on Go routes, where they typically have to turn and run with the receiver. 
 
 ### Breakout by Coverage 
 
@@ -119,7 +121,7 @@ We also broke it out accross the different defensive coverage types to see which
 
 (Table 2: high-impact plays by coverage type)
 
-We see here that defender speed is most important in __ coverages, but not as important in __ coverages. 
+We see that defender speed is typically more important in man coverage compared to zone coverage. However, it was actually most influential in a cover 3 zone (where the back 3 defenders have to cover a lot of vertical space).  
 
 ## Conclusion
 
@@ -135,12 +137,12 @@ This approach transforms combine metrics from simple scouting data into actionab
 
 ## Appendix: Code
 
-The code for the analysis and visuals is available in a public GitHub repo. The code is broken out across a few different Jupyter notebooks: 
+The code for the analysis and visuals is available in a public [GitHub repo](https://github.com/rjf2022/nfl-big-data-bowl/tree/main/Final%20Code). The code is broken out across a few different Jupyter notebooks: 
 
-1. Summarize Tracking Data 
-2. Pull Combine Data 
-3. Analyze Metrics 
-4. Create Visuals 
+1. [Summarize Tracking Data](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/1.%20Summarize%20Tracking%20Data.ipynb)
+2. [Pull Combine Data](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/2.%20Pull%20Combine%20Data.ipynb) 
+3. [Analyze Metrics](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/3.%20Analyze%20Metrics.ipynb) 
+4. [Create Visuals](https://github.com/rjf2022/nfl-big-data-bowl/blob/main/Final%20Code/4.%20Create%20Visuals.ipynb)
 
 ## Acknowledgments
 
