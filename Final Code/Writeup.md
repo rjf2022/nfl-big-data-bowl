@@ -1,5 +1,7 @@
 # Speed Matters: How Defender 40 Times Impact Pass Defense
 
+<img src="https://raw.githubusercontent.com/rjf2022/nfl-big-data-bowl/main/Final%20Code/Cover%20Image.png" alt="Writeup Cover Image" width="600"> 
+
 ## Introduction
 
 The NFL Combine is where the league's top prospects put their athleticism on display, showcasing their speed, agility, and strength. One of the most iconic tests is the 40-yard dash, a baseline measure of a player's straight-line speed and acceleration. But how much does this actually matter once players hit the field? 
@@ -10,7 +12,7 @@ In this analysis, we examine how a defender's 40-yard dash time influences their
 
 ### Player Tracking Data 
 
-Through the NFL Big Data Bowl, we were provided player tracking data from the 2023 NFL season. This included frame-by-frame position data for receivers and defenders on pass plays before the pass and while the ball was in the air. It also included supplementary info about each play such as the pass result, route of the targeted receiver, and defensive coverage type. 
+Through the [2026 NFL Big Data Bowl](https://www.kaggle.com/competitions/nfl-big-data-bowl-2026-analytics/overview), we were provided player tracking data from the 2023 NFL season. This included frame-by-frame position data for receivers and defenders on pass plays (before the pass and while the ball was in the air). It also included supplementary info about each play, including the pass result, route of the targeted receiver, and defensive coverage type. 
 
 These are a few terms we'll use with the tracking data: 
 
@@ -20,7 +22,7 @@ These are a few terms we'll use with the tracking data:
 
 ### Defender 40-Times 
 
-We pulled NFL Combine results from this [Pro Football Reference](https://www.pro-football-reference.com/draft/2023-combine.htm) website to get the 40 times for each defender. Note that this only uses 40 times from the NFL Combine, so we don't have data for defenders who didn't run the 40-Yard Dash in the Combine, and they were excluded from the analysis. 
+We pulled NFL Combine results from this [Pro Football Reference](https://www.pro-football-reference.com/draft/2023-combine.htm) website to get the 40 times for each defender. Note that this only uses 40 times from the NFL Combine, so we don't have data for defenders who didn't run the 40-Yard Dash in the Combine (and hence they were excluded from the analysis). 
 
 ## Defender Tracking Metrics 
 
@@ -28,12 +30,12 @@ Using the tracking data, we developed 3 different metrics to measure the defende
 
 1. Top Speed - max speed of the defender throughout the play 
     - This includes both before the ball is thrown and while the ball is in the air 
-    - Measured in miles per hour (mph)
+    - This is measured in miles per hour (mph)
 2. Peak Acceleration to the Ball - max acceleration towards the ball landing position 
     - We calculated this using distance between the defender's position at each frame and the ball landing position (so that it takes into account the defender's ability to change direction to move towards the ball) 
     - This is measured in yards per second squared (yd/s²) 
 3. Final Separation - distance between the receiver and primary defender at the final frame 
-    - Measured in yards 
+    - This is measured in yards 
 
 We picked out a few play examples below to demonstrate these metrics: 
 
@@ -41,7 +43,7 @@ We picked out a few play examples below to demonstrate these metrics:
 
 In the first example, we see DJ Turner (who set the record for the 2023 Combine with a 4.26) having to turn and run with the receiver on a go route (allowing only 0.42 yards of final separation): 
 
-<img src="example_1_end.png" alt="Figure 1. DJ Turner Covers a Go Route" width="600">
+<img src="https://raw.githubusercontent.com/rjf2022/nfl-big-data-bowl/main/Final%20Code/example_1_end.png" alt="Figure 1. DJ Turner Covers a Go Route" width="600">
 
 *Figure 1. DJ Turner Covers a Go Route* 
 
@@ -59,7 +61,7 @@ In our second example, the receiver runs a deep out in the end zone, forcing Deo
 
 *Figure 3. Deonte Banks Covers an Out Route* 
 
-When we plot out his acceleration to the ball, we see that it peaks at 7.5 yd/s² - allowing him to catch up to the receiver (with only 0.41 yards of final separation), get out in front, and prevent the touchdown. 
+When we plot out his acceleration to the ball, we see that it peaks at 7.5 yd/s², allowing him to catch up to the receiver (with only 0.41 yards of final separation), get out in front, and prevent the touchdown. 
 
 <img src="Example 2 Chart.png" alt="Figure 4. Deonte Banks Peak Acceleration Chart" width="600">
 
@@ -67,7 +69,7 @@ When we plot out his acceleration to the ball, we see that it peaks at 7.5 yd/s�
 
 ## High-Impact Setups 
 
-While defender speed had a big impact on the examples above, this isn't always the case. There are a lot of factors that go into whether or not a pass is completed, so speed alone doesn't always have a significant impact. Thus, we created a simple ML model to estimate the actual impact of defender speed on pass plays. 
+While defender speed had a big impact on the examples above, this isn't always the case. There are a lot of factors that go into whether or not a pass is completed, so speed alone doesn't always have a significant impact. Thus, we created a simple ML model to estimate the actual impact of defender speed on specific pass plays. 
 
 ### ML Model 
 
@@ -91,7 +93,7 @@ We won't go into too much detail about SHAP values, but there are 2 main guideli
 
 ### High-Impact Classification 
 
-To simplify our analysis, we decided to flag "high-impact" plays where the defender's 40 time has a significantly negative impact on the pass result. We classify a "significantly low" impact as anything with a SHAP value below -0.1. 
+To simplify our analysis, we decided to flag "high-impact" plays where the defender's 40 time has a significantly negative impact on the pass result. We classify a "significantly negative" impact as anything with a SHAP value below -0.1. 
 
 For example, in the play below (see Figure 5), we see a go route planned against a cover 3 zone defense. This route is setup to be covered by Eric Stokes, who ran a 4.31 in the 2021 NFL Comine. 
 
@@ -113,7 +115,7 @@ Overall (in the test dataset), we found that in high-impact plays, defenders
 - Allow **15.8% less separation** (2.7 yards vs 3.21 yards) 
 - Give up a **9.0% lower completion rate** (61.1% vs 67.1%) 
 
-Note that we didn't actually see a significant difference in acceleration (5.0 yd/s² vs 4.97 yd/s²). We believe this is because a lot of the high-impact plays occur on deeper routes (see Table 1 in the next section) where the defender is already running in the right direction when the ball is thrown. 
+Note that we didn't actually see a significant difference in peak acceleration (5.0 yd/s² vs 4.97 yd/s²). We believe this is because a lot of the high-impact plays occur on deeper routes (see Table 1 in the next section) where the defender is already running in the right direction when the ball is thrown. 
 
 ### Breakout by Route 
 
