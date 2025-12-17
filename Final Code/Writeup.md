@@ -43,13 +43,13 @@ We picked out a few play examples below to demonstrate these metrics:
 
 In the first example, we see DJ Turner (who set the record for the 2023 Combine with a 4.26) having to turn and run with the receiver on a go route (allowing only 0.42 yards of final separation): 
 
-<img src="https://raw.githubusercontent.com/rjf2022/nfl-big-data-bowl/main/Final%20Code/example_1_end.png" alt="Figure 1. DJ Turner Covers a Go Route" width="600">
+<img src="https://raw.githubusercontent.com/rjf2022/nfl-big-data-bowl/main/Final%20Code/Figure%201.%20DJ%20Turner%20Covers%20a%20Go%20Route.png" alt="Figure 1. DJ Turner Covers a Go Route" width="600">
 
 *Figure 1. DJ Turner Covers a Go Route* 
 
 When we plot out his speed throughout the play, we see that he hit a top speed of 22 mph (which is actually faster than the receiver), allowing him to catch up to the receiver and prevent a big play. 
 
-<img src="Example 1 Chart.png" alt="Figure 2. DJ Turner Top Speed Chart" width="600">
+<img src="https://raw.githubusercontent.com/rjf2022/nfl-big-data-bowl/main/Final%20Code/Figure%202.%20DJ%20Turner%20Top%20Speed%20Chart.png" alt="Figure 2. DJ Turner Top Speed Chart" width="600">
 
 *Figure 2. DJ Turner Top Speed Chart* 
 
@@ -57,13 +57,13 @@ When we plot out his speed throughout the play, we see that he hit a top speed o
 
 In our second example, the receiver runs a deep out in the end zone, forcing Deonte Banks to shift from a slight backpedal to a sprint towards the sideline: 
 
-<img src="example_2_end.png" alt="Figure 3. Deonte Banks Covers an Out Route" width="600">
+<img src="https://raw.githubusercontent.com/rjf2022/nfl-big-data-bowl/main/Final%20Code/Figure%203.%20Deonte%20Banks%20Covers%20an%20Out%20Route.png" alt="Figure 3. Deonte Banks Covers an Out Route" width="600">
 
 *Figure 3. Deonte Banks Covers an Out Route* 
 
 When we plot out his acceleration to the ball, we see that it peaks at 7.5 yd/s², allowing him to catch up to the receiver (with only 0.41 yards of final separation), get out in front, and prevent the touchdown. 
 
-<img src="Example 2 Chart.png" alt="Figure 4. Deonte Banks Peak Acceleration Chart" width="600">
+<img src="https://raw.githubusercontent.com/rjf2022/nfl-big-data-bowl/main/Final%20Code/Figure%204.%20Deonte%20Banks%20Peak%20Acceleration%20Chart.png" alt="Figure 4. Deonte Banks Peak Acceleration Chart" width="600">
 
 *Figure 4. Deonte Banks Peak Acceleration Chart* 
 
@@ -99,7 +99,7 @@ For example, in the play below (see Figure 5), we see a go route planned against
 
 Against a normal defender (i.e. average 40 time), we estimate a 42.8% completion probability for this route. However, against Stokes, the completion probability drops down to 29.4%. 
 
-<img src="Setup Probability Example.png" alt="Figure 5. Play Setup Probability Example" width="600">
+<img src="https://raw.githubusercontent.com/rjf2022/nfl-big-data-bowl/main/Final%20Code/Figure%205.%20Play%20Setup%20Probability%20Example.png" alt="Figure 5. Play Setup Probability Example" width="600">
 
 *Figure 5. Play Setup Probability Example* 
 
